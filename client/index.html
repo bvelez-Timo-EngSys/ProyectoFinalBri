@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat Salas</title>
+    <title>Chat con Salas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h2>Chat Colaborativo con Salas</h2>
+<div class="container">
 
-<div id="login">
-    <input id="username" placeholder="Nombre de usuario">
-    <button onclick="connect()">Conectar</button>
-</div>
+    <div id="login" class="card">
+        <h2>  Iniciar sesion</h2>
+        <input id="username" class="input" placeholder="Nombre de usuario">
+        <button class="btn" onclick="connect()">Conectar</button>
+    </div>
 
-<div id="chat" style="display:none;">
-    <input id="room" placeholder="Sala">
-    <button onclick="joinRoom()">Entrar</button>
+    <div id="chat" class="chat-layout" style="display:none;">
 
-    <div id="messages"></div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Salas</h3>
+            <div id="room-list"></div>
 
-    <input id="msg" placeholder="Mensaje">
-    <button onclick="sendMessage()">Enviar</button>
+            <input id="room" class="input small" placeholder="Nueva sala">
+            <button class="btn small" onclick="joinRoom()">Crear/Entrar</button>
+        </div>
+
+        <!-- Chat principal -->
+        <div class="chat-box">
+            <div id="messages" class="messages"></div>
+
+            <div class="send-box">
+                <input id="msg" class="input" placeholder="Escribe un mensaje...">
+                <button class="btn" onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 <script src="app.js"></script>

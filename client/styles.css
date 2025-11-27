@@ -1,14 +1,130 @@
 body {
-    font-family: Arial;
-    background: #f4f4f4;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #eceff1;
 }
 
-#messages {
-    margin-top: 20px;
-    background: white;
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.input {
+    width: 100%;
     padding: 10px;
-    height: 300px;
-    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.input.small {
+    font-size: 13px;
+    padding: 8px;
+}
+
+.btn {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: #2979ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.btn.small {
+    padding: 8px;
+    font-size: 13px;
+}
+
+.btn:hover {
+    background: #1565c0;
+}
+
+.chat-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 200px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+#room-list div {
+    padding: 8px;
+    background: #e3f2fd;
+    margin: 5px 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#room-list div:hover {
+    background: #bbdefb;
+}
+
+.chat-box {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    flex: 1;
+    background: #fafafa;
     border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-y: auto;
+    height: 400px;
+}
+
+.msg {
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+}
+
+.msg.me {
+    background: #c8e6c9;
+    text-align: right;
+}
+
+.msg.user {
+    background: #e1f5fe;
+}
+
+.msg.system {
+    background: #ffe082;
+    font-style: italic;
+}
+
+.send-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.active-room {
+    background: #1976d2 !important;
+    color: white;
+    font-weight: bold;
 }
