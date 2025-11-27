@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Salas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h2>Chat Colaborativo con Salas</h2>
+
+<div id="login">
+    <input id="username" placeholder="Nombre de usuario">
+    <button onclick="connect()">Conectar</button>
+</div>
+
+<div id="chat" style="display:none;">
+    <input id="room" placeholder="Sala">
+    <button onclick="joinRoom()">Entrar</button>
+
+    <div id="messages"></div>
+
+    <input id="msg" placeholder="Mensaje">
+    <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
