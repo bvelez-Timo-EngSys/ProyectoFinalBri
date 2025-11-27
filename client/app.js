@@ -1,6 +1,6 @@
 let socket;
 let username;
-let currentRoom = null;  // Sala en la que el usuario está actualmente
+let currentRoom = null;
 
 // ===== CONECTAR =====
 function connect() {
@@ -10,9 +10,6 @@ function connect() {
     socket = new WebSocket("ws://localhost:8000");
 
     socket.onopen = () => {
-        console.log("Conectado al servidor");
-
-        // Envío obligatorio según tu servidor
         socket.send(JSON.stringify({
             type: "connect",
             username
@@ -25,35 +22,30 @@ function connect() {
     socket.onmessage = (event) => handleServerMessage(event.data);
 
     socket.onclose = () => {
-        alert("Se perdio conexión con el servidor");
+        alert("Conexión perdida");
         location.reload();
     };
 }
 
-// ===== PROCESAR MENSAJES DEL SERVIDOR =====
+// ===== PROCESAR MENSAJES =====
 function handleServerMessage(raw) {
     let data;
-    try {
-        data = JSON.parse(raw);
-    } catch {
-        return;
-    }
+    try { data = JSON.parse(raw); } catch { return; }
 
     switch (data.type) {
+
         case "connected":
-            addMessage(" " + data.message, "system");
+            addMessage(data.message, "system");
             requestRooms();
             break;
 
         case "notice":
             addMessage(" " + data.message, "system");
             break;
-        
 
         case "message":
-            if (data.room !== currentRoom) return; // ignorar mensajes de otras salas
-            addMessage(
-                `<b>${data.sender}:</b> ${data.message}`,
+            if (data.room !== currentRoom) return;
+            addMessage(`<b>${data.sender}:</b> ${data.message}`,
                 data.sender === username ? "me" : "user"
             );
             break;
@@ -61,63 +53,52 @@ function handleServerMessage(raw) {
         case "rooms":
             updateRoomList(data.rooms);
             break;
-
-        case "user_list":
-            // Puedes mostrarla si quieres
-            console.log("Usuarios en sala:", data.users);
-            break;
-
-        default:
-            console.log("Mensaje desconocido:", data);
     }
 }
 
-// ===== AGREGAR MENSAJE AL CHAT =====
+// ===== AGREGAR MENSAJE =====
 function addMessage(html, type = "user") {
     const box = document.getElementById("messages");
-
     box.innerHTML += `<div class="msg ${type}">${html}</div>`;
     box.scrollTop = box.scrollHeight;
 }
 
-// ===== UNIRSE A UNA SALA =====
+// ===== UNIRSE =====
 function joinRoom() {
     const room = document.getElementById("room").value.trim();
     if (!room) return;
     joinSpecificRoom(room);
 }
 
-function joinSpecificRoom(roomName) {
-    currentRoom = roomName;
+function joinSpecificRoom(room) {
+    currentRoom = room;
 
-    // Limpiar mensajes de la sala anterior
     document.getElementById("messages").innerHTML = "";
 
     socket.send(JSON.stringify({
         type: "join",
-        room: roomName
+        room
     }));
 
-    addMessage(` Te uniste a la sala: <b>${roomName}</b>`, "system");
+    addMessage(`Te uniste a la sala <b>${room}</b>`, "system");
 
     requestRooms();
 }
 
-// ===== SOLICITAR LISTA DE SALAS =====
+// ===== LISTA DE SALAS =====
 function requestRooms() {
     socket.send(JSON.stringify({
         type: "list_rooms"
     }));
 }
 
-// ===== ACTUALIZAR LISTA DE SALAS =====
+// ===== ACTUALIZAR LISTA =====
 function updateRoomList(rooms) {
-    const container = document.getElementById("room-list");
-    container.innerHTML = "";
+    const list = document.getElementById("room-list");
+    list.innerHTML = "";
 
     rooms.forEach(room => {
         const div = document.createElement("div");
-        div.classList.add("room-item");
         div.textContent = room;
 
         if (room === currentRoom)
@@ -125,7 +106,7 @@ function updateRoomList(rooms) {
 
         div.onclick = () => joinSpecificRoom(room);
 
-        container.appendChild(div);
+        list.appendChild(div);
     });
 }
 
@@ -142,3 +123,8 @@ function sendMessage() {
 
     input.value = "";
 }
+
+// ===== ENTER PARA ENVIAR =====
+document.addEventListener("keypress", e => {
+    if (e.key === "Enter") sendMessage();
+});
