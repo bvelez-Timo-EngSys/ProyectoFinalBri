@@ -88,14 +88,16 @@ body {
 }
 
 .messages {
-    flex: 1;
-    background: #fafafa;
+    background: #ffffff;
     border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    overflow-y: auto;
-    height: 400px;
+    padding: 10px;
+    height: 350px;      /* ALTURA FIJA */
+    max-height: 350px;  /* EVITA QUE SE EXPANDA */
+    overflow-y: auto;   /* SCROLL SI HAY MUCHOS MENSAJES */
+    border-radius: 6px;
+    margin-top: 15px;
 }
+
 
 .msg {
     padding: 6px 10px;
