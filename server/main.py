@@ -2,7 +2,7 @@ import asyncio
 import websockets
 from websocket_server import handler
 
-HOST = "localhost"
+HOST = "10.253.3.6"
 PORT = 8000
 
 async def main():

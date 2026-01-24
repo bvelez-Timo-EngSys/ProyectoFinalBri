@@ -7,7 +7,7 @@ function connect() {
     username = document.getElementById("username").value.trim();
     if (!username) return alert("Ingresa un nombre");
 
-    socket = new WebSocket("ws://localhost:8000");
+    socket = new WebSocket("ws://10.253.3.6:8000");
 
     socket.onopen = () => {
         socket.send(JSON.stringify({
